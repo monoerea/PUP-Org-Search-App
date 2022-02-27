@@ -21,7 +21,7 @@ import javax.swing.Icon;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 
-public class SubActivityCreatePost {
+public class SubActivityCreatePost implements Runnable{
 
 	//GUI Variables 
 	private JFrame frmSubActivityCreatePost;
@@ -50,17 +50,13 @@ public class SubActivityCreatePost {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SubActivityCreatePost window = new SubActivityCreatePost();
-					window.frmSubActivityCreatePost.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			SubActivityCreatePost window = new SubActivityCreatePost();
+			window.frmSubActivityCreatePost.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -72,7 +68,7 @@ public class SubActivityCreatePost {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "1234";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -185,12 +181,16 @@ public class SubActivityCreatePost {
 				}
 				
 				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmSubActivityCreatePost.dispose();
 			}
 		});
 		
 		btnBACK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmSubActivityCreatePost.dispose();
 			}
 		});
 		

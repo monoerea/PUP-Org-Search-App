@@ -30,7 +30,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.Icon;
 import java.awt.ScrollPane;
 
-public class ActivityDiscover {
+public class ActivityDiscover implements Runnable {
 
 	//GUI Variables 
 	private JFrame frmActivityDiscover;
@@ -51,18 +51,15 @@ public class ActivityDiscover {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityDiscover window = new ActivityDiscover();
-					window.frmActivityDiscover.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			ActivityDiscover window = new ActivityDiscover();
+			window.frmActivityDiscover.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 
 	/**
 	 * Create the application.
@@ -73,7 +70,7 @@ public class ActivityDiscover {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "1234";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -166,12 +163,16 @@ public class ActivityDiscover {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO VIEW ORG/USER ACTIVITY
+				MainActivity.ActivityViewOrg();
+				frmActivityDiscover.dispose();
 			}
 		});
 		
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmActivityDiscover.dispose();
 			}
 		});
 		

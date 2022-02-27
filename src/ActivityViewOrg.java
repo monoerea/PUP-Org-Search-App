@@ -32,7 +32,7 @@ import javax.swing.Icon;
 import java.awt.ScrollPane;
 import javax.swing.JSeparator;
 
-public class ActivityViewOrg {
+public class ActivityViewOrg implements Runnable{
 
 	//GUI Variables 
 	private JFrame frmActivityViewOrg;
@@ -59,17 +59,13 @@ public class ActivityViewOrg {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityViewOrg window = new ActivityViewOrg();
-					window.frmActivityViewOrg.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			ActivityViewOrg window = new ActivityViewOrg();
+			window.frmActivityViewOrg.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -81,7 +77,7 @@ public class ActivityViewOrg {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "1234";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -207,6 +203,8 @@ public class ActivityViewOrg {
 				int intIndex = list.getSelectedIndex();
 				System.out.println(arrScrollPane.get(intIndex));
 				//GO TO ACTIVITYVIEWPOST
+				MainActivity.SubActivityViewPost();
+				frmActivityViewOrg.dispose();
 			}
 		});
 		
@@ -228,6 +226,8 @@ public class ActivityViewOrg {
 		btnEditDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO MODIFY EDITORG
+				MainActivity.ActivityEditOrg();
+				frmActivityViewOrg.dispose();
 			}
 		});
 		
@@ -235,18 +235,24 @@ public class ActivityViewOrg {
 			public void actionPerformed(ActionEvent e) {
 				//USE ORG NAME AND STORE TO...
 				//GO TO SUBACTIVITYPOST
+				MainActivity.SubActivityCreatePost();
+				frmActivityViewOrg.dispose();
 			}
 		});
 		
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO ACTIVITYDISCOVER
+				MainActivity.ActivityCreateUser();
+				frmActivityViewOrg.dispose();
 			}
 		});
 		
 		btnViewMembers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO SUBACTIVITYVIEWMEMBERS
+				MainActivity.SubActivityViewMembers();
+				frmActivityViewOrg.dispose();
 			}
 		});
 			

@@ -28,7 +28,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
-public class SubActivityViewMembers {
+public class SubActivityViewMembers implements Runnable{
 
 	//GUI Variables 
 	private JFrame frmSubActivityViewMembers;
@@ -60,17 +60,13 @@ public class SubActivityViewMembers {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SubActivityViewMembers window = new SubActivityViewMembers();
-					window.frmSubActivityViewMembers.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			SubActivityViewMembers window = new SubActivityViewMembers();
+			window.frmSubActivityViewMembers.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -82,7 +78,7 @@ public class SubActivityViewMembers {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "1234";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -191,12 +187,16 @@ public class SubActivityViewMembers {
 				int intIndex = list.getSelectedIndex();
 				System.out.println(arrScrollPane.get(intIndex));
 				//GO TO ACTIVITYVIEWORG
+				MainActivity.ActivityViewOrg();
+				frmSubActivityViewMembers.dispose();
 			}
 		});				
 		
 		btnBACK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmSubActivityViewMembers.dispose();
 			}
 		});
 		
