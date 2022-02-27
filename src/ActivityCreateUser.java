@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -34,7 +35,7 @@ public class ActivityCreateUser {
 	private JTextField txtLastName;
 	private JTextField txtCollege;
 	private JTextField txtEmail;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 	
 	//Connection Variables
 	private Connection objConn;
@@ -72,7 +73,7 @@ public class ActivityCreateUser {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "DerTeufelunterhandler12"; // TO DO 
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -96,7 +97,7 @@ public class ActivityCreateUser {
 		frmActivityCreateUser = new JFrame();
 		//frmActivityCreateUser.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityCreateUser.setTitle("PUP Organization Search");
-		frmActivityCreateUser.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityCreateUser.setBounds(0, 0, 455,768);
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityCreateUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityCreateUser.getContentPane().setLayout(null);
@@ -168,7 +169,7 @@ public class ActivityCreateUser {
 		frmActivityCreateUser.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
 		txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
 		txtPassword.setOpaque(false);
