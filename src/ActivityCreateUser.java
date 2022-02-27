@@ -23,7 +23,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class ActivityCreateUser {
+public class ActivityCreateUser implements Runnable {
 
 	//GUI Variables 
 	private JFrame frmActivityCreateUser;
@@ -51,29 +51,25 @@ public class ActivityCreateUser {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityCreateUser window = new ActivityCreateUser();
-					window.frmActivityCreateUser.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			ActivityCreateUser window = new ActivityCreateUser();
+			window.frmActivityCreateUser.setVisible(true);
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public ActivityCreateUser() {
+	public ActivityCreateUser(){
 		try {
 			//connecting to server
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "DerTeufelunterhandler12"; // TO DO 
+	        String strPass = "1234"; // TO DO 
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -435,6 +431,8 @@ public class ActivityCreateUser {
 								);
 						JOptionPane.showMessageDialog(null,"Account successfully created");
 						//GO TO LOGGING IN ACTIVITY
+						MainActivity.ActivityLoggingIn();
+						frmActivityCreateUser.dispose();
 					}
 					
 				} catch (SQLException e) {
@@ -446,6 +444,8 @@ public class ActivityCreateUser {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent objAE) {
 				//GO TO LOGGING IN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmActivityCreateUser.dispose();
 			}
 		});	
 	}

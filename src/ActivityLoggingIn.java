@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class ActivityLoggingIn {
+public class ActivityLoggingIn implements Runnable {
 
 	//GUI Variables 
 	private JFrame frmActivityLoggingIn;
@@ -44,18 +44,15 @@ public class ActivityLoggingIn {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityLoggingIn window = new ActivityLoggingIn();
-					window.frmActivityLoggingIn.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			ActivityLoggingIn window = new ActivityLoggingIn();
+			window.frmActivityLoggingIn.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 
 	/**
 	 * Create the application.
@@ -66,7 +63,7 @@ public class ActivityLoggingIn {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "DerTeufelunterhandler12";
+	        String strPass = "1234";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -191,6 +188,8 @@ public class ActivityLoggingIn {
 							if(strPassword2.contentEquals(strPassword1)) {
 								JOptionPane.showMessageDialog(null,"Entered");
 								//GO TO HOME PAGE ACTIVITY
+								MainActivity.ActivityHomePage();
+								frmActivityLoggingIn.dispose();
 							}else {
 								System.out.println("Wrong password");
 							}
@@ -207,6 +206,8 @@ public class ActivityLoggingIn {
 		btnCreateUserActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO CREATE USER ACTIVITY
+				MainActivity.ActivityCreateUser();
+				frmActivityLoggingIn.dispose();
 			}
 		});
 	}

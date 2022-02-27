@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
 
-public class ActivityEditOrg {
+public class ActivityEditOrg implements Runnable {
 
 	//GUI Variables 
 	private JFrame frmActivityEditOrg;
@@ -52,17 +52,13 @@ public class ActivityEditOrg {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityEditOrg window = new ActivityEditOrg();
-					window.frmActivityEditOrg.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void run() {
+		try {
+			ActivityEditOrg window = new ActivityEditOrg();
+			window.frmActivityEditOrg.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -260,6 +256,8 @@ public class ActivityEditOrg {
 							);
 					JOptionPane.showMessageDialog(null,"Account successfully created");
 						//GO TO LOGGING IN ACTIVITY
+					MainActivity.ActivityLoggingIn();
+					frmActivityEditOrg.dispose();
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -270,6 +268,8 @@ public class ActivityEditOrg {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent objAE) {
 				//GO TO LOGGING IN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmActivityEditOrg.dispose();
 			}
 		});	
 	}

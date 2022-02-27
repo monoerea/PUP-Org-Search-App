@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
 
-public class ActivityCreateOrg {
+public class ActivityCreateOrg implements Runnable{
 
 	//GUI Variables 
 	private JFrame frmActivityCreateOrg;
@@ -48,23 +48,19 @@ public class ActivityCreateOrg {
 	 * @wbp.nonvisual location=132,579
 	 */
 	private final JTextArea txtDesc = new JTextArea();
-	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityCreateOrg window = new ActivityCreateOrg();
+	public void run() {
+		try {
+			ActivityCreateOrg window = new ActivityCreateOrg();
 					window.frmActivityCreateOrg.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -75,7 +71,7 @@ public class ActivityCreateOrg {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "DerTeufelunterhandler12"; // TODO
+	        String strPass = "1234"; // TODO //Whippycape2012
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -331,6 +327,8 @@ public class ActivityCreateOrg {
 								);
 						JOptionPane.showMessageDialog(null,"Account successfully created");
 						//GO TO LOGGING IN ACTIVITY
+						MainActivity.ActivityLoggingIn();
+						frmActivityCreateOrg.dispose();
 					}
 					
 				} catch (SQLException e) {
@@ -342,6 +340,8 @@ public class ActivityCreateOrg {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent objAE) {
 				//GO TO LOGGING IN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmActivityCreateOrg.dispose();
 			}
 		});	
 	}

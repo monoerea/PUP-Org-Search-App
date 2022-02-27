@@ -31,7 +31,7 @@ import javax.swing.Icon;
 import java.awt.ScrollPane;
 import javax.swing.JSeparator;
 
-public class ActivityUserProfile {
+public class ActivityUserProfile implements Runnable{
 
 	//GUI Variables 
 	private JFrame frmActivityUserProfile;
@@ -65,8 +65,7 @@ public class ActivityUserProfile {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {
 					ActivityUserProfile window = new ActivityUserProfile();
@@ -75,8 +74,6 @@ public class ActivityUserProfile {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -87,7 +84,7 @@ public class ActivityUserProfile {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "1234";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -243,6 +240,8 @@ public class ActivityUserProfile {
 				int intIndex = list.getSelectedIndex();
 				System.out.println(arrScrollPane.get(intIndex));
 				//GO TO ACTIVITYVIEWORG
+				MainActivity.ActivityViewOrg();
+				frmActivityUserProfile.dispose();
 			}
 		});
 		
