@@ -18,18 +18,21 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.Icon;
-import java.awt.ScrollPane;
-import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.DropMode;
 
 public class ActivityEditOrg {
 
 	//GUI Variables 
-	private JFrame frmActivityViewOrg;
+	private JFrame frmActivityEditOrg;
+	private JLabel lblPUPLogo;
+	private JLabel lblTitle;
+	private JTextField txtOrganizationName;
+	private JTextField txtOrganizationType;
+	private JTextField txtOrganizationEmail;
 	
 	//Connection Variables
 	private Connection objConn;
@@ -38,16 +41,12 @@ public class ActivityEditOrg {
 	private ResultSet objResultSet;
 	
 	//User Variables
-	String Email,Password;//put to main
-	private JButton btnProfile;
-	private JButton btnBack;
-	JButton btnSave;
-	JButton btnDeletePost;
-	private JLabel lblOrganizationName;
-	private JSeparator separator;
-	private ScrollPane scrollPane;
-	private JLabel lblOrgsJoined;
-	private JTextField[] textField;
+	String OrganizationEmail,Password;//put to main
+	private JButton btnGoBack;
+	/**
+	 * @wbp.nonvisual location=132,579
+	 */
+	private final JTextArea txtDesc = new JTextArea();
 	
 
 	/**
@@ -58,7 +57,7 @@ public class ActivityEditOrg {
 			public void run() {
 				try {
 					ActivityEditOrg window = new ActivityEditOrg();
-					window.frmActivityViewOrg.setVisible(true);
+					window.frmActivityEditOrg.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,7 +74,7 @@ public class ActivityEditOrg {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "DerTeufelunterhandler12"; // TODO
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -96,193 +95,184 @@ public class ActivityEditOrg {
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
-		frmActivityViewOrg = new JFrame();
-		frmActivityViewOrg.getContentPane().setBackground(new Color(176, 224, 230));
-		//frmActivityViewOrg.setContentPane(new JLabel(new ImageIcon(ActivityViewOrg.class.getResource("/images/background.png"))));		
-		frmActivityViewOrg.setTitle("PUP Organization Search");
-		frmActivityViewOrg.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		
+		frmActivityEditOrg = new JFrame();
+		//frmActivityEditOrg.getContentPane().setBackground(new Color(176, 224, 230));
+		frmActivityEditOrg.setTitle("PUP Organization Search");
+		frmActivityEditOrg.setBounds(0, 0, 455,768);
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
-		frmActivityViewOrg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmActivityViewOrg.getContentPane().setLayout(null);
+		frmActivityEditOrg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmActivityEditOrg.getContentPane().setLayout(null);
+		frmActivityEditOrg.setContentPane(new JLabel(new ImageIcon(ActivityHomePage.class.getResource("/images/background1.png"))));		
 		
-		btnProfile = new JButton(new ImageIcon(ActivityEditOrg.class.getResource("/images/user.png")));
-		btnProfile.setBounds(195, 10, 100, 100);
-		frmActivityViewOrg.getContentPane().add(btnProfile);
+		lblPUPLogo = new JLabel("Insert PUP Logo Here");
+		lblPUPLogo.setBounds(145, 21, 150, 150);
+		lblPUPLogo.setIcon(new ImageIcon(ActivityEditOrg.class.getResource("/images/puplogo1.png")));
+		frmActivityEditOrg.getContentPane().add(lblPUPLogo);
 		
-		btnBack = new JButton("BACK");
-		btnBack.setOpaque(false);
-		btnBack.setForeground(new Color(255, 69, 0));
-		btnBack.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnBack.setContentAreaFilled(false);
-		btnBack.setBorderPainted(false);
-		btnBack.setBounds(174, 695, 150, 23);
-		frmActivityViewOrg.getContentPane().add(btnBack);
+		lblTitle = new JLabel("PUP Organization Search");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblTitle.setForeground(new Color(197, 90, 17));
+		lblTitle.setBounds(31, 191, 377, 54);
+		frmActivityEditOrg.getContentPane().add(lblTitle);
 		
-		lblOrganizationName = new JLabel("Organization Name");
-		lblOrganizationName.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblOrganizationName.setBounds(33, 146, 309, 31);
-		frmActivityViewOrg.getContentPane().add(lblOrganizationName);
+		txtOrganizationName = new JTextField();
+		txtOrganizationName.setFont(new Font("Calibri", Font.PLAIN, 20));
+		txtOrganizationName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
+		txtOrganizationName.setOpaque(false);
+		txtOrganizationName.setText("  Organization Name...");
+		txtOrganizationName.setBounds(65, 267, 303, 30);
+		frmActivityEditOrg.getContentPane().add(txtOrganizationName);
+		txtOrganizationName.setColumns(10);
 		
-		separator = new JSeparator();
-		separator.setBounds(10, 429, 448, 31);
-		frmActivityViewOrg.getContentPane().add(separator);
+		txtOrganizationType = new JTextField();
+		txtOrganizationType.setFont(new Font("Calibri", Font.PLAIN, 20));
+		txtOrganizationType.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
+		txtOrganizationType.setOpaque(false);
+		txtOrganizationType.setText("  Organization Type...");
+		txtOrganizationType.setBounds(65, 321, 303, 30);
+		frmActivityEditOrg.getContentPane().add(txtOrganizationType);
+		txtOrganizationType.setColumns(10);
 		
-		scrollPane = new ScrollPane();
-		scrollPane.setBounds(10, 459, 448, 175);
-		/*
-		 * contentPane.add(scrollPane);
-			JList list = new JList(objPosts.toArray());
-			scrollPane.setViewportView(list);	
-		 */
-		frmActivityViewOrg.getContentPane().add(scrollPane);
-		frmActivityViewOrg.getContentPane().add(scrollPane);
+		txtOrganizationEmail = new JTextField();
+		txtOrganizationEmail.setFont(new Font("Calibri", Font.PLAIN, 20));
+		txtOrganizationEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
+		txtOrganizationEmail.setOpaque(false);
+		txtOrganizationEmail.setText("  Organization Email...");
+		txtOrganizationEmail.setBounds(65, 375, 303, 30);
+		frmActivityEditOrg.getContentPane().add(txtOrganizationEmail);
+		txtOrganizationEmail.setColumns(10);
+				
+		txtDesc.setLineWrap(true);
+		txtDesc.setFont(new Font("Calibri", Font.PLAIN, 20));
+		txtDesc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
+		txtDesc.setOpaque(false);
+		txtDesc.setRows(2);
+		txtDesc.setText("  Add Organization Description...");
+		txtDesc.setBounds(65, 427, 303, 60);
+		frmActivityEditOrg.getContentPane().add(txtDesc);
+		txtDesc.setColumns(10);
 		
-		lblOrgsJoined = new JLabel("POSTS");
-		lblOrgsJoined.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblOrgsJoined.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblOrgsJoined.setBounds(10, 429, 319, 31);
-		frmActivityViewOrg.getContentPane().add(lblOrgsJoined);
+		JButton btnFINISH = new JButton("FINISH");
+		btnFINISH.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnFINISH.setFont(new Font("Calibri", Font.BOLD, 30));
+		btnFINISH.setBounds(99, 621, 230, 54);
+		btnFINISH.setBackground(new Color(255, 69, 0));
+		frmActivityEditOrg.getContentPane().add(btnFINISH);
 		
-		JLabel lblDescription = new JLabel("Description");
-		lblDescription.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblDescription.setBounds(33, 269, 309, 31);
-		frmActivityViewOrg.getContentPane().add(lblDescription);
+		btnGoBack = new JButton("Go Back");
+		btnGoBack.setOpaque(false);
+		btnGoBack.setContentAreaFilled(false);
+		btnGoBack.setBorderPainted(false);
+		btnGoBack.setBounds(135, 686, 150, 23);
+		frmActivityEditOrg.getContentPane().add(btnGoBack);
 		
-		JLabel lblOrganizationType = new JLabel("Organization Type");
-		lblOrganizationType.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblOrganizationType.setBounds(33, 187, 159, 31);
-		frmActivityViewOrg.getContentPane().add(lblOrganizationType);
-		
-		btnSave = new JButton("SAVE");
-		btnSave.setOpaque(false);
-		btnSave.setForeground(new Color(255, 69, 0));
-		btnSave.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnSave.setContentAreaFilled(false);
-		btnSave.setBorderPainted(false);
-		btnSave.setBounds(174, 374, 150, 23);
-		frmActivityViewOrg.getContentPane().add(btnSave);
-		
-		JButton btnCreatePost = new JButton("Create Post");
-		btnCreatePost.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnCreatePost.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCreatePost.setBounds(40, 652, 189, 37);
-		frmActivityViewOrg.getContentPane().add(btnCreatePost);
-		
-		JLabel lblOrganizationEmail = new JLabel("Organization Email");
-		lblOrganizationEmail.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblOrganizationEmail.setBounds(33, 228, 309, 31);
-		frmActivityViewOrg.getContentPane().add(lblOrganizationEmail);
-		
-		btnDeletePost = new JButton("Delete Post");
-		btnDeletePost.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnDeletePost.setBounds(269, 652, 189, 37);
-		frmActivityViewOrg.getContentPane().add(btnDeletePost);
-		
-		textField = new JTextField[4];
-		
-		int y=115;
-		for(int i=0;i<4;i++) {
-		textField[i] = new JTextField();
-		textField[i].setBounds(258, y+=40, 159, 23);
-		frmActivityViewOrg.getContentPane().add(textField[i]);
-		textField[i].setColumns(10);
-		}
-		textField[0].addMouseListener(new MouseAdapter() {
+		//makes content of textfield to disappear when mouse
+		txtOrganizationName.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textField[0].setText(null);
-				if(textField[1].getText().equals("")) {
-					textField[1].setText("  Organization Type...");
+				if(txtOrganizationName.getText().equals("  Organization Name..."))
+					txtOrganizationName.setText(null);
+				if(txtOrganizationType.getText().equals("")) {
+					txtOrganizationType.setText("  Organization Type...");
 				}
-				if(textField[2].getText().equals("")) {
-					textField[2].setText("  Organization Email...");
+				if(txtOrganizationEmail.getText().equals("")) {
+					txtOrganizationEmail.setText("  Organization Email...");
 				}
-				if(textField[3].getText().equals("")) {
-					textField[3].setText("  Description...");
+				if(txtDesc.getText().equals("")) {
+					txtDesc.setText("  Add Organization Description...");
 				}
 			}
 		});
-		textField[1].addMouseListener(new MouseAdapter() {
+		//makes content of textfield to disappear when mouse
+		txtOrganizationType.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textField[1].setText(null);
-				if(textField[0].getText().equals("")) {
-					textField[0].setText("  Organization Name...");
+				if(txtOrganizationType.getText().equals("  Organization Type..."))
+					txtOrganizationType.setText(null);
+				if(txtOrganizationName.getText().equals("")) {
+					txtOrganizationName.setText("  Organization Name...");
 				}
-				if(textField[2].getText().equals("")) {
-					textField[2].setText("  Organization Email...");
+				if(txtOrganizationEmail.getText().equals("")) {
+					txtOrganizationEmail.setText("  Organization Email...");
 				}
-				if(textField[3].getText().equals("")) {
-					textField[3].setText("  Description...");
+				if(txtDesc.getText().equals("")) {
+					txtDesc.setText("  Add Organization Description...");
 				}
 			}
 		});
-		textField[2].addMouseListener(new MouseAdapter() {
+		//makes content of textfield to disappear when mouse
+		txtOrganizationEmail.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textField[2].setText(null);
-				if(textField[0].getText().equals("")) {
-					textField[0].setText("  Organization Name...");
+				if(txtOrganizationEmail.getText().equals("  Organization Email..."))
+					txtOrganizationEmail.setText(null);
+				txtOrganizationEmail.setForeground(Color.BLACK);
+				txtOrganizationEmail.setFont(new Font("Calibri", Font.PLAIN, 20));
+				if(txtOrganizationName.getText().equals("")) {
+					txtOrganizationName.setText("  Organization Name...");
 				}
-				if(textField[1].getText().equals("")) {
-					textField[1].setText("  Organization Type...");
+				if(txtOrganizationType.getText().equals("")) {
+					txtOrganizationType.setText("  Organization Type...");
 				}
-				if(textField[3].getText().equals("")) {
-					textField[3].setText("  Description...");
+				if(txtDesc.getText().equals("")) {
+					txtDesc.setText("  Add Organization Description...");
 				}
 			}
-		});
-		textField[3].addMouseListener(new MouseAdapter() {
+		});	
+		//makes content of textfield to disappear when mouse
+		txtDesc.addMouseListener(new MouseAdapter( ) {
 			public void mouseClicked(MouseEvent objME) {
-				textField[3].setText(null);
-				if(textField[0].getText().equals("")) {
-					textField[0].setText("  Organization Name...");
+				if(txtDesc.getText().equals("  Add Organization Description..."))
+					txtDesc.setText(null);
+				if(txtOrganizationName.getText().equals("")) {
+					txtOrganizationName.setText("  Organization Name...");
 				}
-				if(textField[1].getText().equals("")) {
-					textField[1].setText("  Organization Type...");
+				if(txtOrganizationType.getText().equals("")) {
+					txtOrganizationType.setText("  Organization Type...");
 				}
-				if(textField[2].getText().equals("")) {
-					textField[2].setText("  Organization Email...");
+				if(txtOrganizationEmail.getText().equals("")) {
+					txtOrganizationEmail.setText("  Organization Email...");
 				}
 			}
 		});
-	//btn add action
-		/*
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String strOrganizationName1 = textField[0].getText().trim();
-				String strOrganizationType1 = textField[1].getText().trim();
-				String strOrganizationEmail1 = textField[2].getText().trim();
-				String strDesc1 = textField[3].getText();
-				}
-
-					try {
-						objResultSet = objSQLQuery.executeQuery("select * from tbluserdata");
-						while(objResultSet.next()) {
-							if(/*strOrganizationID*//*.contentEquals(objResultSet.getString("strOrganizationID"))) {
-								/*
-								objSQLQuery.executeUpdate("UPDATE tblorganizationdata"
-										+ "SET"
-										+ "strOrganizationName = 'strOrganizationName1'"
-										+", strOrganizationType = 'strOrganizationType1'"
-										+", strOrganizationEmail = 'strOrganizationEmail1'"
-										+", strOrganizationDescription = 'strOrganizationDescription'"
-										+"WHERE strOrganizationID ='strOrganizationID1';"
-										);
-								*/
-								/*}
-						}
-						
-					} catch (SQLException e) {
-						e.printStackTrace();
+		
+		btnFINISH.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent objAE) {
+				//compare if existing
+				String strOrganizationName1 = txtOrganizationName.getText().trim();
+				String strOrganizationType1 = txtOrganizationType.getText().trim();
+				String strOrganizationEmail1 = txtOrganizationEmail.getText().trim();
+				String strDesc1 = txtDesc.getText();
+				boolean boolError = false;
+				try {
+					
+					objSQLQuery.executeUpdate("update tblorganizationdata set "
+							+ "strOrganizationName = "
+							+ strOrganizationName1
+							+ ", "
+							+ "strOrganizationType = "
+							+ strOrganizationType1
+							+ ", "
+							+ "strOrganizationEmail = "
+							+ strOrganizationEmail1
+							+ ", "
+							+ "strOrganizationDescription = "
+							+ strDesc1
+							//+ " where strOrganizationID = "
+							);
+					JOptionPane.showMessageDialog(null,"Account successfully created");
+						//GO TO LOGGING IN ACTIVITY
 					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-			});
-			
-			btnBack.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent objAE) {
-					//GO TO  VIEW ORG IN ACTIVITY
-				}
-			});*/
-		}
+			} 
+		});
+		
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent objAE) {
+				//GO TO LOGGING IN ACTIVITY
+			}
+		});	
 	}
+}
