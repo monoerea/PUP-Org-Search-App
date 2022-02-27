@@ -212,7 +212,8 @@ public class ActivityEditUser {
 		
 		textfield[0].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textfield[0].setText(null);
+				if(textfield[0].getText().equals("  First Name..."))
+					textfield[0].setText(null);
 				if(textfield[1].getText().equals("")) {
 					textfield[1].setText("  Middle Name...");
 				}
@@ -232,7 +233,8 @@ public class ActivityEditUser {
 		});
 		textfield[1].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textfield[1].setText(null);
+				if(textfield[1].getText().equals("  Middle Name..."))
+					textfield[1].setText(null);
 				if(textfield[0].getText().equals("")) {
 					textfield[0].setText("  First Name...");
 				}
@@ -252,7 +254,8 @@ public class ActivityEditUser {
 		});
 		textfield[2].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textfield[2].setText(null);
+				if(textfield[2].getText().equals("  Last Name..."))
+					textfield[2].setText(null);
 				if(textfield[0].getText().equals("")) {
 					textfield[0].setText("  First Name...");
 				}
@@ -272,7 +275,8 @@ public class ActivityEditUser {
 		});
 		textfield[3].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				textfield[3].setText(null);
+				if(textfield[3].getText().equals("  College..."))
+					textfield[3].setText(null);
 				if(textfield[0].getText().equals("")) {
 					textfield[0].setText("  First Name...");
 				}
@@ -293,7 +297,7 @@ public class ActivityEditUser {
 		textfield[4].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
 				textfield[4].setText(null);
-				if(textfield[0].getText().equals("")) {
+				if(textfield[0].getText().equals("  Email...")) {
 					textfield[0].setText("  First Name...");
 				}
 				if(textfield[1].getText().equals("")) {
@@ -312,6 +316,7 @@ public class ActivityEditUser {
 		});
 		textfield[5].addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
+				if(textfield[5].getText().equals("  Password..."))
 				textfield[5].setText(null);
 				if(textfield[0].getText().equals("")) {
 					textfield[0].setText("  First Name...");
