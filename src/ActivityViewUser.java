@@ -205,7 +205,6 @@ public class ActivityViewUser {
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(10, 467, 419, 222);
 		frmActivityViewUser.getContentPane().add(scrollPane);
-		frmActivityViewUser.getContentPane().add(scrollPane);
 		
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(new ListSelectionListener() {

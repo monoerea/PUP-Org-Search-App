@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,14 +15,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.Icon;
 import java.awt.ScrollPane;
 
@@ -103,14 +108,37 @@ public class ActivityDiscover {
 		btnSearch.setBounds(10, 11, 50, 50);
 		frmActivityDiscover.getContentPane().add(btnSearch);
 		
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setBounds(10, 71, 419, 618);
-		/*
-		 * contentPane.add(scrollPane);
-			JList list = new JList(objPosts.toArray());
-			scrollPane.setViewportView(list);	
-		 */
+		ArrayList <String> arrScrollPane = new ArrayList<>();
+		try {
+			int num=1;
+			objResultSet=objSQLQuery.executeQuery("select * from tblpostsdata");
+			while(objResultSet.next()) {
+				arrScrollPane.add("( "
+						+ objResultSet.getString("dtime")
+						+ " ) "
+						+ objResultSet.getString("strStudentID")
+						+ " - "
+						+ objResultSet.getString("strTitle")
+						);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		JList list = new JList(arrScrollPane.toArray());
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(10, 72, 419, 617);
 		frmActivityDiscover.getContentPane().add(scrollPane);
+		
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int intIndex = list.getSelectedIndex();
+				System.out.println(arrScrollPane.get(intIndex));
+				//GO TO ACTIVITYVIEWORG
+			}
+		});		
 		
 		btnLogout = new JButton("LOGOUT");
 		btnLogout.setFont(new Font("Tahoma", Font.BOLD, 20));

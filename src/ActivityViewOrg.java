@@ -52,6 +52,8 @@ public class ActivityViewOrg {
 	private JScrollPane scrollPane;
 	private JLabel lblOrgsJoined;
 	private JButton btnJoin;
+	private JButton btnMemberCount;
+	private JButton btnViewMembers;
 	
 
 	/**
@@ -128,7 +130,7 @@ public class ActivityViewOrg {
 		frmActivityViewOrg.getContentPane().add(lblOrganizationName);
 		
 		separator = new JSeparator();
-		separator.setBounds(10, 156, 419, 23);
+		separator.setBounds(10, 156, 419, 14);
 		frmActivityViewOrg.getContentPane().add(separator);
 				
 		ArrayList <String> arrScrollPane = new ArrayList<>();
@@ -156,7 +158,7 @@ public class ActivityViewOrg {
 		lblOrgsJoined = new JLabel("POSTS");
 		lblOrgsJoined.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblOrgsJoined.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblOrgsJoined.setBounds(20, 160, 319, 31);
+		lblOrgsJoined.setBounds(20, 160, 106, 31);
 		frmActivityViewOrg.getContentPane().add(lblOrgsJoined);
 		
 		btnJoin = new JButton("Join");
@@ -187,6 +189,36 @@ public class ActivityViewOrg {
 		btnCreatePost.setBounds(10, 658, 419, 31);
 		frmActivityViewOrg.getContentPane().add(btnCreatePost);
 		
+		
+		
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		btnMemberCount = new JButton("Member Count");
+		btnMemberCount.setOpaque(false);
+		btnMemberCount.setForeground(new Color(255, 69, 0));
+		btnMemberCount.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnMemberCount.setContentAreaFilled(false);
+		btnMemberCount.setBorderPainted(false);
+		btnMemberCount.setBounds(120, 163, 159, 23);
+		frmActivityViewOrg.getContentPane().add(btnMemberCount);
+		list.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int intIndex = list.getSelectedIndex();
+				System.out.println(arrScrollPane.get(intIndex));
+				//GO TO ACTIVITYVIEWPOST
+			}
+		});
+		
+		btnViewMembers = new JButton("View Members");
+		btnViewMembers.setOpaque(false);
+		btnViewMembers.setForeground(new Color(255, 69, 0));
+		btnViewMembers.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnViewMembers.setContentAreaFilled(false);
+		btnViewMembers.setBorderPainted(false);
+		btnViewMembers.setBounds(270, 163, 159, 23);
+		frmActivityViewOrg.getContentPane().add(btnViewMembers);
+		
 		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO MODIFY TBLORGANIZATIONBELONGDATA
@@ -212,16 +244,11 @@ public class ActivityViewOrg {
 			}
 		});
 		
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				int intIndex = list.getSelectedIndex();
-				System.out.println(arrScrollPane.get(intIndex));
-				//GO TO ACTIVITYVIEWPOST
+		btnViewMembers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//GO TO SUBACTIVITYVIEWMEMBERS
 			}
 		});
-		
 			
 	}
 }
