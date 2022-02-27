@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -26,7 +27,7 @@ public class ActivityLoggingIn {
 	//GUI Variables 
 	private JFrame frmActivityLoggingIn;
 	private JTextField txtEmail;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 	private JLabel lblPUPLogo;
 	private JLabel lblTitle;
 	
@@ -65,7 +66,7 @@ public class ActivityLoggingIn {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "DerTeufelunterhandler12";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -89,7 +90,7 @@ public class ActivityLoggingIn {
 		frmActivityLoggingIn = new JFrame();
 		//frmActivityLoggingIn.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityLoggingIn.setTitle("PUP Organization Search");
-		frmActivityLoggingIn.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityLoggingIn.setBounds(0, 0, 455, 768);
 		System.out.println((Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityLoggingIn.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityLoggingIn.getContentPane().setLayout(null);
@@ -106,7 +107,7 @@ public class ActivityLoggingIn {
 		frmActivityLoggingIn.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
 		txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
 		txtPassword.setOpaque(false);
@@ -144,8 +145,9 @@ public class ActivityLoggingIn {
 		//makes content of textfield to disappear when mouse
 		txtEmail.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtEmail.setText(null);
-				if(txtPassword.getText().equals("")) {
+				if(txtEmail.getText().equals("  Email..."))
+					txtEmail.setText(null);
+				if(txtPassword.getPassword().equals("")) {
 					txtPassword.setText("  Password...");
 				}
 			}
@@ -154,7 +156,8 @@ public class ActivityLoggingIn {
 		//makes content of textfield to disappear when mouse 
 		txtPassword.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtPassword.setText(null);       
+				if(txtPassword.getText().equals("  Password..."))
+					txtPassword.setText(null);
 				if(txtEmail.getText().equals("")) {
 					txtEmail.setText("  Email...");
 				}
@@ -166,18 +169,18 @@ public class ActivityLoggingIn {
 				if(txtEmail.getText().equals("")) {
 					txtEmail.setText("  Email...");
 				}
-				if(txtPassword.getText().equals("")) {
+				if(txtPassword.getPassword().equals("")) {
 					txtPassword.setText("  Password...");
 				}
 				
 				//compare email and password
 				String strEmail1=txtEmail.getText().trim();//from textbox
-				String strPassword1=txtPassword.getText().trim();//from textbox
+				String strPassword1;
+				strPassword1 = txtPassword.getText().trim();//from textbox
 				String strEmail2;//from db
 				String strPassword2;//from db
 				try {
 					objResultSet=objSQLQuery.executeQuery("Select * from tbluserdata");//retrieve data and store to objResultSet
-					
 					while(objResultSet.next()){
 						strEmail2=objResultSet.getString("strEmail").trim();
 						strPassword2=objResultSet.getString("strPassword").trim();
