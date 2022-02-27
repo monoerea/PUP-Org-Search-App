@@ -75,7 +75,7 @@ public class ActivityCreateOrg {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "DerTeufelunterhandler12"; // TODO
+	        String strPass = "Whippycape2012"; // TODO
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();

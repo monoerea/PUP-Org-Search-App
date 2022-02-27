@@ -30,7 +30,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.Icon;
 import java.awt.ScrollPane;
 
-public class ActivityHomePage {
+public class ActivityHomePage implements Runnable {
 
 	//GUI Variables 
 	private JFrame frmActivityHomePage;
@@ -52,18 +52,17 @@ public class ActivityHomePage {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActivityHomePage window = new ActivityHomePage();
-					window.frmActivityHomePage.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+	
+	public void run() {
+		try {
+			ActivityHomePage window = new ActivityHomePage();
+			window.frmActivityHomePage.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 
 	/**
 	 * Create the application.
