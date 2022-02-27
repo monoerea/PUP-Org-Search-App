@@ -242,7 +242,6 @@ public class ActivityEditOrg {
 				String strOrganizationType1 = txtOrganizationType.getText().trim();
 				String strOrganizationEmail1 = txtOrganizationEmail.getText().trim();
 				String strDesc1 = txtDesc.getText();
-				boolean boolError = false;
 				try {
 					
 					objSQLQuery.executeUpdate("update tblorganizationdata set "
@@ -261,7 +260,6 @@ public class ActivityEditOrg {
 							);
 					JOptionPane.showMessageDialog(null,"Account successfully created");
 						//GO TO LOGGING IN ACTIVITY
-					}
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
