@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -34,7 +35,7 @@ public class ActivityCreateUser {
 	private JTextField txtLastName;
 	private JTextField txtCollege;
 	private JTextField txtEmail;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 	
 	//Connection Variables
 	private Connection objConn;
@@ -72,7 +73,7 @@ public class ActivityCreateUser {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "Whippycape2012";
+	        String strPass = "DerTeufelunterhandler12"; // TO DO 
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -96,7 +97,7 @@ public class ActivityCreateUser {
 		frmActivityCreateUser = new JFrame();
 		//frmActivityCreateUser.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityCreateUser.setTitle("PUP Organization Search");
-		frmActivityCreateUser.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityCreateUser.setBounds(0, 0, 455,768);
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityCreateUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityCreateUser.getContentPane().setLayout(null);
@@ -168,7 +169,7 @@ public class ActivityCreateUser {
 		frmActivityCreateUser.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
 		txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE));
 		txtPassword.setOpaque(false);
@@ -194,7 +195,8 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtStudentID.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtStudentID.setText(null);
+				if(txtStudentID.getText().equals("  Student ID..."))
+					txtStudentID.setText(null);
 				txtStudentID.setForeground(Color.BLACK);
 				txtStudentID.setFont(new Font("Calibri", Font.PLAIN, 20));
 				if(txtFirstName.getText().equals("")) {
@@ -220,6 +222,7 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtFirstName.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
+				if(txtFirstName.getText().equals("  First Name..."))
 				txtFirstName.setText(null);
 				if(txtStudentID.getText().equals("")) {
 					txtStudentID.setText("  Student ID...");
@@ -244,7 +247,8 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtMiddleName.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtMiddleName.setText(null);
+				if(txtMiddleName.getText().equals("  Middle Name..."))
+					txtMiddleName.setText(null);
 				if(txtStudentID.getText().equals("")) {
 					txtStudentID.setText("  Student ID...");
 				}
@@ -268,7 +272,8 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtLastName.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtLastName.setText(null);
+				if(txtLastName.getText().equals("  Last Name..."))
+					txtLastName.setText(null);
 				if(txtStudentID.getText().equals("")) {
 					txtStudentID.setText("  Student ID...");
 				}
@@ -292,7 +297,8 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtCollege.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtCollege.setText(null);
+				if(txtCollege.getText().equals("  College..."))
+					txtCollege.setText(null);
 				if(txtStudentID.getText().equals("")) {
 					txtStudentID.setText("  Student ID...");
 				}
@@ -316,7 +322,8 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtEmail.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtEmail.setText(null);
+				if(txtEmail.getText().equals("  Email..."))
+					txtEmail.setText(null);
 				txtEmail.setForeground(Color.BLACK);
 				txtEmail.setFont(new Font("Calibri", Font.PLAIN, 20));
 				if(txtStudentID.getText().equals("")) {
@@ -342,7 +349,8 @@ public class ActivityCreateUser {
 		//makes content of textfield to disappear when mouse
 		txtPassword.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtPassword.setText(null);
+				if(txtPassword.getText().equals("  Password..."))
+					txtPassword.setText(null);
 				if(txtStudentID.getText().equals("")) {
 					txtStudentID.setText("  Student ID...");
 				}

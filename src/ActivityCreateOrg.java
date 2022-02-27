@@ -181,14 +181,15 @@ public class ActivityCreateOrg {
 		//makes content of textfield to disappear when mouse
 		txtOrganizationID.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtOrganizationID.setText(null);
+				if(txtOrganizationID.getText().equals("  Organization ID..."))
+					txtOrganizationID.setText(null);
 				txtOrganizationID.setForeground(Color.BLACK);
 				txtOrganizationID.setFont(new Font("Calibri", Font.PLAIN, 20));
 				if(txtOrganizationName.getText().equals("")) {
 					txtOrganizationName.setText("  Organization Name...");
 				}
 				if(txtOrganizationType.getText().equals("")) {
-					txtOrganizationType.setText("  OrganizationType...");
+					txtOrganizationType.setText("  Organization Type...");
 				}
 				if(txtOrganizationEmail.getText().equals("")) {
 					txtOrganizationEmail.setText("  Organization Email...");
@@ -201,12 +202,13 @@ public class ActivityCreateOrg {
 		//makes content of textfield to disappear when mouse
 		txtOrganizationName.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtOrganizationName.setText(null);
+				if(txtOrganizationName.getText().equals("  Organization Name..."))
+					txtOrganizationName.setText(null);
 				if(txtOrganizationID.getText().equals("")) {
 					txtOrganizationID.setText("  Organization ID...");
 				}
 				if(txtOrganizationType.getText().equals("")) {
-					txtOrganizationType.setText("  OrganizationType...");
+					txtOrganizationType.setText("  Organization Type...");
 				}
 				if(txtOrganizationEmail.getText().equals("")) {
 					txtOrganizationEmail.setText("  Organization Email...");
@@ -219,7 +221,8 @@ public class ActivityCreateOrg {
 		//makes content of textfield to disappear when mouse
 		txtOrganizationType.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtOrganizationType.setText(null);
+				if(txtOrganizationType.getText().equals("  Organization Type..."))
+					txtOrganizationType.setText(null);
 				if(txtOrganizationID.getText().equals("")) {
 					txtOrganizationID.setText("  Organization ID...");
 				}
@@ -237,7 +240,8 @@ public class ActivityCreateOrg {
 		//makes content of textfield to disappear when mouse
 		txtOrganizationEmail.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent objME) {
-				txtOrganizationEmail.setText(null);
+				if(txtOrganizationEmail.getText().equals("  Organization Email..."))
+					txtOrganizationEmail.setText(null);
 				txtOrganizationEmail.setForeground(Color.BLACK);
 				txtOrganizationEmail.setFont(new Font("Calibri", Font.PLAIN, 20));
 				if(txtOrganizationID.getText().equals("")) {
@@ -247,7 +251,7 @@ public class ActivityCreateOrg {
 					txtOrganizationName.setText("  Organization Name...");
 				}
 				if(txtOrganizationType.getText().equals("")) {
-					txtOrganizationType.setText("  OrganizationType...");
+					txtOrganizationType.setText("  Organization Type...");
 				}
 				if(txtDesc.getText().equals("")) {
 					txtDesc.setText("  Add Organization Description...");
@@ -257,7 +261,8 @@ public class ActivityCreateOrg {
 		//makes content of textfield to disappear when mouse
 		txtDesc.addMouseListener(new MouseAdapter( ) {
 			public void mouseClicked(MouseEvent objME) {
-				txtDesc.setText(null);
+				if(txtDesc.getText().equals("  Add Organization Description..."))
+					txtDesc.setText(null);
 				if(txtOrganizationID.getText().equals("")) {
 					txtOrganizationID.setText("  Organization ID...");
 				}
@@ -265,7 +270,7 @@ public class ActivityCreateOrg {
 					txtOrganizationName.setText("  Organization Name...");
 				}
 				if(txtOrganizationType.getText().equals("")) {
-					txtOrganizationType.setText("  OrganizationType...");
+					txtOrganizationType.setText("  Organization Type...");
 				}
 				if(txtOrganizationEmail.getText().equals("")) {
 					txtOrganizationEmail.setText("  Organization Email...");
