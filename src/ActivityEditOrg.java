@@ -70,7 +70,7 @@ public class ActivityEditOrg implements Runnable {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "DerTeufelunterhandler12"; // TODO
+	        String strPass = "Whippycape2012"; // TODO
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -95,7 +95,7 @@ public class ActivityEditOrg implements Runnable {
 		frmActivityEditOrg = new JFrame();
 		//frmActivityEditOrg.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityEditOrg.setTitle("PUP Organization Search");
-		frmActivityEditOrg.setBounds(0, 0, 455,768);
+		frmActivityEditOrg.setBounds(400, 0, 455,768);
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityEditOrg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityEditOrg.getContentPane().setLayout(null);
@@ -256,7 +256,7 @@ public class ActivityEditOrg implements Runnable {
 							);
 					JOptionPane.showMessageDialog(null,"Account successfully created");
 						//GO TO LOGGING IN ACTIVITY
-					MainActivity.ActivityLoggingIn();
+					MainActivity.ActivityHomePage();
 					frmActivityEditOrg.dispose();
 					
 				} catch (SQLException e) {
@@ -268,7 +268,7 @@ public class ActivityEditOrg implements Runnable {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent objAE) {
 				//GO TO LOGGING IN ACTIVITY
-				MainActivity.ActivityLoggingIn();
+				MainActivity.ActivityHomePage();
 				frmActivityEditOrg.dispose();
 			}
 		});	

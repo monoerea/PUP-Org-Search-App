@@ -78,7 +78,7 @@ public class SubActivityViewMembers implements Runnable{
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "Whippycape2012";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -103,7 +103,7 @@ public class SubActivityViewMembers implements Runnable{
 		frmSubActivityViewMembers.getContentPane().setBackground(new Color(176, 224, 230));
 		//frmSubActivityViewMembers.setContentPane(new JLabel(new ImageIcon(SubActivityPost.class.getResource("/images/background.png"))));		
 		frmSubActivityViewMembers.setTitle("PUP Organization Search");
-		frmSubActivityViewMembers.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmSubActivityViewMembers.setBounds(400, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmSubActivityViewMembers.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSubActivityViewMembers.getContentPane().setLayout(null);
@@ -161,14 +161,12 @@ public class SubActivityViewMembers implements Runnable{
 		ArrayList <String> arrScrollPane = new ArrayList<>();
 		try {
 			int num=1;
-			objResultSet=objSQLQuery.executeQuery("select * from tblpostsdata");
+			objResultSet=objSQLQuery.executeQuery("select * from tblorganizationbelongdata where strOrganizationID = '"+ActivityViewOrg.strOrganizationID+"'");
 			while(objResultSet.next()) {
 				arrScrollPane.add("( "
-						+ objResultSet.getString("dtime")
+						+ objResultSet.getString("strRole")
 						+ " ) "
 						+ objResultSet.getString("strStudentID")
-						+ " - "
-						+ objResultSet.getString("strTitle")
 						);
 			}
 		} catch (SQLException e1) {
@@ -195,7 +193,7 @@ public class SubActivityViewMembers implements Runnable{
 		btnBACK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO LOGGINGIN ACTIVITY
-				MainActivity.ActivityLoggingIn();
+				MainActivity.ActivityViewOrg();
 				frmSubActivityViewMembers.dispose();
 			}
 		});

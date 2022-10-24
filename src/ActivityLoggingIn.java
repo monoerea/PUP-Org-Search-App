@@ -38,7 +38,7 @@ public class ActivityLoggingIn implements Runnable {
 	private ResultSet objResultSet;
 	
 	//User Variables
-	String Email,Password;//put to main
+	
 	
 
 	/**
@@ -63,7 +63,7 @@ public class ActivityLoggingIn implements Runnable {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "Whippycape2012";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -87,7 +87,7 @@ public class ActivityLoggingIn implements Runnable {
 		frmActivityLoggingIn = new JFrame();
 		//frmActivityLoggingIn.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityLoggingIn.setTitle("PUP Organization Search");
-		frmActivityLoggingIn.setBounds(0, 0, 455, 768);
+		frmActivityLoggingIn.setBounds(400, 0, 455, 768);
 		System.out.println((Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityLoggingIn.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityLoggingIn.getContentPane().setLayout(null);
@@ -176,6 +176,7 @@ public class ActivityLoggingIn implements Runnable {
 				strPassword1 = txtPassword.getText().trim();//from textbox
 				String strEmail2;//from db
 				String strPassword2;//from db
+				boolean boolcorrect = false;
 				try {
 					objResultSet=objSQLQuery.executeQuery("Select * from tbluserdata");//retrieve data and store to objResultSet
 					while(objResultSet.next()){
@@ -187,18 +188,27 @@ public class ActivityLoggingIn implements Runnable {
 						if(strEmail2.contentEquals(strEmail1)) {
 							if(strPassword2.contentEquals(strPassword1)) {
 								JOptionPane.showMessageDialog(null,"Entered");
+								boolcorrect=true;
 								//GO TO HOME PAGE ACTIVITY
+								System.out.println(objResultSet.getString("strStudentID"));
+								ActivityUserProfile.strStudentID=objResultSet.getString("strStudentID");
+								ActivityUserProfile.strFirstName=objResultSet.getString("strFirstName");
+								ActivityUserProfile.strMiddleName=objResultSet.getString("strMiddleName");
+								ActivityUserProfile.strLastName=objResultSet.getString("strLastName");
+								ActivityUserProfile.strCollege=objResultSet.getString("strCollege");
+								ActivityUserProfile.strEmail=objResultSet.getString("strEmail");
+								ActivityUserProfile.strPassword=objResultSet.getString("strPassword");
 								MainActivity.ActivityHomePage();
 								frmActivityLoggingIn.dispose();
-							}else {
-								System.out.println("Wrong password");
 							}
-						}else {
-							System.out.println("Wrong Email");
 						}
-					}
-				} catch (Exception e) {
+						
+						}
+					} catch (Exception e) {
 					e.printStackTrace();
+				}
+				if(boolcorrect != true){
+					JOptionPane.showMessageDialog(null,"Wrong Email or Password");
 				}
 			} 
 		}); 

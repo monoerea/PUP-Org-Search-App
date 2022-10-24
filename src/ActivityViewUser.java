@@ -58,6 +58,15 @@ public class ActivityViewUser implements Runnable{
 	private JSeparator separator_1;
 	private JScrollPane scrollPane;
 	private JLabel lblOrgsJoined;
+
+
+	public static String strStudentID,
+		strFirstName,
+		strMiddleName,
+		strLastName,
+		strCollege,
+		strEmail,
+		strPassword;
 	
 
 	/**
@@ -81,7 +90,7 @@ public class ActivityViewUser implements Runnable{
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "Whippycape2012";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -106,7 +115,7 @@ public class ActivityViewUser implements Runnable{
 		frmActivityViewUser.getContentPane().setBackground(new Color(176, 224, 230));
 		//frmActivityViewUser.setContentPane(new JLabel(new ImageIcon(ActivityViewUser.class.getResource("/images/background.png"))));		
 		frmActivityViewUser.setTitle("PUP Organization Search");
-		frmActivityViewUser.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityViewUser.setBounds(400, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityViewUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityViewUser.getContentPane().setLayout(null);
@@ -114,6 +123,15 @@ public class ActivityViewUser implements Runnable{
 		btnProfile = new JButton(new ImageIcon(ActivityViewUser.class.getResource("/images/user.png")));
 		btnProfile.setBounds(173, 11, 100, 100);
 		frmActivityViewUser.getContentPane().add(btnProfile);
+
+		JButton btnEditDetails = new JButton("EDIT");
+		btnEditDetails.setOpaque(false);
+		btnEditDetails.setForeground(new Color(255, 69, 0));
+		btnEditDetails.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnEditDetails.setContentAreaFilled(false);
+		btnEditDetails.setBorderPainted(false);
+		btnEditDetails.setBounds(349, 170, 80, 23);
+		frmActivityViewUser.getContentPane().add(btnEditDetails);
 		
 		btnBack = new JButton("BACK");
 		btnBack.setOpaque(false);
@@ -124,7 +142,7 @@ public class ActivityViewUser implements Runnable{
 		btnBack.setBounds(145, 695, 150, 23);
 		frmActivityViewUser.getContentPane().add(btnBack);
 		
-		lblStudentID = new JLabel("Student ID");
+		lblStudentID = new JLabel(strStudentID);
 		lblStudentID.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		lblStudentID.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStudentID.setBounds(114, 122, 219, 23);
@@ -140,35 +158,36 @@ public class ActivityViewUser implements Runnable{
 		lblDetails.setBounds(20, 170, 319, 31);
 		frmActivityViewUser.getContentPane().add(lblDetails);
 		
-		lblFirstName = new JLabel("First Name");
+		lblFirstName = new JLabel(strFirstName);
 		lblFirstName.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblFirstName.setBounds(20, 226, 319, 23);
 		frmActivityViewUser.getContentPane().add(lblFirstName);
 		
-		lblMiddleName = new JLabel("Middle Name");
+		lblMiddleName = new JLabel(strMiddleName);
 		lblMiddleName.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblMiddleName.setBounds(20, 260, 319, 23);
 		frmActivityViewUser.getContentPane().add(lblMiddleName);
 		
-		lblLastName = new JLabel("Last Name");
+		lblLastName = new JLabel(strLastName);
 		lblLastName.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblLastName.setBounds(20, 294, 319, 23);
 		frmActivityViewUser.getContentPane().add(lblLastName);
 		
-		lblCollege = new JLabel("College");
-		lblCollege.setFont(new Font("Calibri", Font.PLAIN, 20));
+		lblCollege = new JLabel(strCollege);
+		lblCollege.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblCollege.setBounds(20, 328, 319, 23);
 		frmActivityViewUser.getContentPane().add(lblCollege);
 		
-		lblEmail = new JLabel("Email");
+		lblEmail = new JLabel(strEmail);
 		lblEmail.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblEmail.setBounds(20, 362, 319, 23);
 		frmActivityViewUser.getContentPane().add(lblEmail);
 		
+		/*
 		lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblPassword.setBounds(20, 396, 319, 23);
-		frmActivityViewUser.getContentPane().add(lblPassword);
+		frmActivityViewUser.getContentPane().add(lblPassword);*/
 		
 		separator_1 = new JSeparator();
 		separator_1.setBounds(10, 423, 419, 23);
@@ -202,6 +221,14 @@ public class ActivityViewUser implements Runnable{
 		scrollPane.setBounds(10, 467, 419, 222);
 		frmActivityViewUser.getContentPane().add(scrollPane);
 		
+		/*btnEditDetails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityEditUser();
+				frmActivityViewUser.dispose();
+			}
+		});*/
+
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -213,5 +240,15 @@ public class ActivityViewUser implements Runnable{
 				frmActivityViewUser.dispose();
 			}
 		});		
+
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityHomePage();
+				frmActivityViewUser.dispose();
+			}
+		});
+
+
 	}
 }

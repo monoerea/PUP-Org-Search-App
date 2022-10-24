@@ -60,6 +60,14 @@ public class ActivityUserProfile implements Runnable{
 	private ScrollPane scrollPane;
 	private JLabel lblOrgsJoined;
 	private JButton btnEditOrgs;
+
+	public static String strStudentID,
+		strFirstName,
+		strMiddleName,
+		strLastName,
+		strCollege,
+		strEmail,
+		strPassword;
 	
 
 	/**
@@ -84,7 +92,7 @@ public class ActivityUserProfile implements Runnable{
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "Whippycape2012";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -109,7 +117,7 @@ public class ActivityUserProfile implements Runnable{
 		frmActivityUserProfile.getContentPane().setBackground(new Color(176, 224, 230));
 		//frmActivityUserProfile.setContentPane(new JLabel(new ImageIcon(ActivityUserProfile.class.getResource("/images/background.png"))));		
 		frmActivityUserProfile.setTitle("PUP Organization Search");
-		frmActivityUserProfile.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityUserProfile.setBounds(400, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityUserProfile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityUserProfile.getContentPane().setLayout(null);
@@ -127,7 +135,8 @@ public class ActivityUserProfile implements Runnable{
 		btnBack.setBounds(145, 695, 150, 23);
 		frmActivityUserProfile.getContentPane().add(btnBack);
 		
-		lblStudentID = new JLabel("Student ID");
+		System.out.println("++++++++++++++++++++++++"+strStudentID);
+		lblStudentID = new JLabel(strStudentID);
 		lblStudentID.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		lblStudentID.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStudentID.setBounds(114, 122, 219, 23);
@@ -152,32 +161,32 @@ public class ActivityUserProfile implements Runnable{
 		lblDetails.setBounds(20, 170, 319, 31);
 		frmActivityUserProfile.getContentPane().add(lblDetails);
 		
-		lblFirstName = new JLabel("First Name");
+		lblFirstName = new JLabel(strFirstName);
 		lblFirstName.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblFirstName.setBounds(20, 226, 319, 23);
 		frmActivityUserProfile.getContentPane().add(lblFirstName);
 		
-		lblMiddleName = new JLabel("Middle Name");
+		lblMiddleName = new JLabel(strMiddleName);
 		lblMiddleName.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblMiddleName.setBounds(20, 260, 319, 23);
 		frmActivityUserProfile.getContentPane().add(lblMiddleName);
 		
-		lblLastName = new JLabel("Last Name");
+		lblLastName = new JLabel(strLastName);
 		lblLastName.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblLastName.setBounds(20, 294, 319, 23);
 		frmActivityUserProfile.getContentPane().add(lblLastName);
 		
-		lblCollege = new JLabel("College");
-		lblCollege.setFont(new Font("Calibri", Font.PLAIN, 20));
+		lblCollege = new JLabel(strCollege);
+		lblCollege.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblCollege.setBounds(20, 328, 319, 23);
 		frmActivityUserProfile.getContentPane().add(lblCollege);
 		
-		lblEmail = new JLabel("Email");
+		lblEmail = new JLabel(strEmail);
 		lblEmail.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblEmail.setBounds(20, 362, 319, 23);
 		frmActivityUserProfile.getContentPane().add(lblEmail);
 		
-		lblPassword = new JLabel("Password");
+		lblPassword = new JLabel(strPassword);
 		lblPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
 		lblPassword.setBounds(20, 396, 319, 23);
 		frmActivityUserProfile.getContentPane().add(lblPassword);
@@ -189,7 +198,8 @@ public class ActivityUserProfile implements Runnable{
 		ArrayList <String> arrScrollPane = new ArrayList<>();
 		try {
 			int num=1;
-			objResultSet=objSQLQuery.executeQuery("select * from tblorganizationbelongdata");//select * from tblorganizationbelongdata where strStudentID = 
+			objResultSet=objSQLQuery.executeQuery("select * from tblorganizationbelongdata where strStudentID = '" + ActivityUserProfile.strStudentID +"'");//
+			System.out.println(objResultSet);
 			while(objResultSet.next()) {
 				arrScrollPane.add("( "
 						+ objResultSet.getString("strRole")
@@ -225,8 +235,18 @@ public class ActivityUserProfile implements Runnable{
 		btnEditDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO EDIT USER ACTIVITY
+				MainActivity.ActivityEditUser();
+				frmActivityUserProfile.dispose();
 			}
 		});
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//GO TO EDIT ORG ACTIVITY
+				MainActivity.ActivityHomePage();
+				frmActivityUserProfile.dispose();
+			}
+		});
+
 		btnEditOrgs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO EDIT ORG ACTIVITY
@@ -240,6 +260,14 @@ public class ActivityUserProfile implements Runnable{
 				int intIndex = list.getSelectedIndex();
 				System.out.println(arrScrollPane.get(intIndex));
 				//GO TO ACTIVITYVIEWORG
+				/*
+				ActivityViewOrg.strOrganizationID=objResultSet.getString("strOrganizationID");
+				ActivityViewOrg.strOrganizationName=objResultSet.getString("strOrganizationName");
+				ActivityViewOrg.strOrganizationType=objResultSet.getString("strOrganizationType");
+				ActivityViewOrg.strOrganizationEmail=objResultSet.getString("strOrganizationEmail");
+				ActivityViewOrg.strOrganizationDescription=objResultSet.getString("strOrganizationDescription");
+				*/
+
 				MainActivity.ActivityViewOrg();
 				frmActivityUserProfile.dispose();
 			}

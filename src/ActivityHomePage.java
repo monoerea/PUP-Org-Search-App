@@ -47,7 +47,6 @@ public class ActivityHomePage implements Runnable {
 	private JButton btnSearch;
 	private JButton btnProfile;
 	private JButton btnLogout;
-	
 
 	/**
 	 * Launch the application.
@@ -73,7 +72,7 @@ public class ActivityHomePage implements Runnable {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "Whippycape2012";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -94,11 +93,13 @@ public class ActivityHomePage implements Runnable {
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
+		
+
 		frmActivityHomePage = new JFrame();
 		frmActivityHomePage.getContentPane().setBackground(new Color(176, 224, 230));
 		//frmActivityHomePage.setContentPane(new JLabel(new ImageIcon(ActivityHomePage.class.getResource("/images/background.png"))));		
 		frmActivityHomePage.setTitle("PUP Organization Search");
-		frmActivityHomePage.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityHomePage.setBounds(400, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityHomePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityHomePage.getContentPane().setLayout(null);
@@ -149,13 +150,23 @@ public class ActivityHomePage implements Runnable {
 		btnLogout.setBorderPainted(false);
 		btnLogout.setBounds(145, 695, 150, 23);
 		frmActivityHomePage.getContentPane().add(btnLogout);
-		
-		btnLogout.addActionListener(new ActionListener() {
+
+		btnProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityUserProfile();
+				frmActivityHomePage.dispose();
 			}
 		});
-		
+
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityDiscover();
+				frmActivityHomePage.dispose();
+			}
+		});
+
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -164,8 +175,19 @@ public class ActivityHomePage implements Runnable {
 				System.out.println(arrScrollPane.get(intIndex));
 				//GO TO ACTIVITYVIEWPOST
 				MainActivity.SubActivityViewPost();
+				frmActivityHomePage.dispose();
 			}
 		});
+
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//GO TO LOGGINGIN ACTIVITY
+				MainActivity.ActivityLoggingIn();
+				frmActivityHomePage.dispose();
+			}
+		});
+		
+		
 		
 	}
 }

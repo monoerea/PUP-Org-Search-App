@@ -71,7 +71,7 @@ public class ActivityCreateOrg implements Runnable{
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234"; // TODO //Whippycape2012
+	        String strPass = "Whippycape2012"; // TODO //Whippycape2012
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -96,7 +96,7 @@ public class ActivityCreateOrg implements Runnable{
 		frmActivityCreateOrg = new JFrame();
 		//frmActivityCreateOrg.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityCreateOrg.setTitle("PUP Organization Search");
-		frmActivityCreateOrg.setBounds(0, 0, 455,768);
+		frmActivityCreateOrg.setBounds(400, 0, 455,768);
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityCreateOrg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityCreateOrg.getContentPane().setLayout(null);
@@ -325,7 +325,23 @@ public class ActivityCreateOrg implements Runnable{
 								+ "'"
 								+ ")"
 								);
-						JOptionPane.showMessageDialog(null,"Account successfully created");
+
+						objSQLQuery.executeUpdate("insert into tblorganizationbelongdata values"
+								+ "("
+								+ "'"
+								+ ActivityUserProfile.strStudentID
+								+ "'"
+								+ ","
+								+ "'"
+								+ strOrganizationID1
+								+ "'"
+								+ ","
+								+ "'"
+								+ "Admin"
+								+ "'"
+								+ ")"
+								);
+						JOptionPane.showMessageDialog(null,"Organization successfully created");
 						//GO TO LOGGING IN ACTIVITY
 						MainActivity.ActivityLoggingIn();
 						frmActivityCreateOrg.dispose();

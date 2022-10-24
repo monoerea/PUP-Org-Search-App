@@ -28,6 +28,9 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import com.mysql.cj.xdevapi.SqlStatement;
+
 import javax.swing.Icon;
 import java.awt.ScrollPane;
 import javax.swing.JSeparator;
@@ -54,6 +57,12 @@ public class ActivityViewOrg implements Runnable{
 	private JButton btnJoin;
 	private JButton btnMemberCount;
 	private JButton btnViewMembers;
+
+	public static String strOrganizationID,
+		strOrganizationName,
+		strOrganizationType,
+		strOrganizationEmail,
+		strOrganizationDescription;
 	
 
 	/**
@@ -77,11 +86,17 @@ public class ActivityViewOrg implements Runnable{
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "1234";
+	        String strPass = "Whippycape2012";
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
 			boolConn2Db = true;
+
+			objResultSet=objSQLQuery.executeQuery("select * from tblorganizationdata");
+			/*while(objResultSet.next()){
+				if(strOrganizationID)
+			}*/
+			System.out.println("-----"+strOrganizationID);
 			if (boolConn2Db) {
 				System.out.println("Connected Succesfully..");
 				initialize();
@@ -102,7 +117,7 @@ public class ActivityViewOrg implements Runnable{
 		frmActivityViewOrg.getContentPane().setBackground(new Color(176, 224, 230));
 		//frmActivityViewOrg.setContentPane(new JLabel(new ImageIcon(ActivityViewOrg.class.getResource("/images/background.png"))));		
 		frmActivityViewOrg.setTitle("PUP Organization Search");
-		frmActivityViewOrg.setBounds(0, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+		frmActivityViewOrg.setBounds(400, 0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3),(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityViewOrg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityViewOrg.getContentPane().setLayout(null);
@@ -120,7 +135,7 @@ public class ActivityViewOrg implements Runnable{
 		btnBack.setBounds(145, 695, 150, 23);
 		frmActivityViewOrg.getContentPane().add(btnBack);
 		
-		lblOrganizationName = new JLabel("Organization Name");
+		lblOrganizationName = new JLabel(strOrganizationName);
 		lblOrganizationName.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		lblOrganizationName.setBounds(120, 11, 309, 31);
 		frmActivityViewOrg.getContentPane().add(lblOrganizationName);
@@ -132,7 +147,7 @@ public class ActivityViewOrg implements Runnable{
 		ArrayList <String> arrScrollPane = new ArrayList<>();
 		try {
 			int num=1;
-			objResultSet=objSQLQuery.executeQuery("select * from tblpostsdata");
+			objResultSet=objSQLQuery.executeQuery("select * from tblpostsdata where strLocation = '" + strOrganizationID + "'" + "order by dtime desc");
 			while(objResultSet.next()) {
 				arrScrollPane.add("( "
 						+ objResultSet.getString("dtime")
@@ -161,12 +176,12 @@ public class ActivityViewOrg implements Runnable{
 		btnJoin.setBounds(20, 122, 79, 23);
 		frmActivityViewOrg.getContentPane().add(btnJoin);
 		
-		JLabel lblDescription = new JLabel("Description");
+		JLabel lblDescription = new JLabel(strOrganizationDescription);
 		lblDescription.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblDescription.setBounds(120, 35, 309, 31);
 		frmActivityViewOrg.getContentPane().add(lblDescription);
 		
-		JLabel lblOrganizationType = new JLabel("Organization Type");
+		JLabel lblOrganizationType = new JLabel(strOrganizationType);
 		lblOrganizationType.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblOrganizationType.setBounds(120, 118, 159, 31);
 		frmActivityViewOrg.getContentPane().add(lblOrganizationType);
@@ -189,13 +204,14 @@ public class ActivityViewOrg implements Runnable{
 		
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		btnMemberCount = new JButton("Member Count");
+		btnMemberCount = new JButton("");
 		btnMemberCount.setOpaque(false);
 		btnMemberCount.setForeground(new Color(255, 69, 0));
 		btnMemberCount.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnMemberCount.setContentAreaFilled(false);
 		btnMemberCount.setBorderPainted(false);
 		btnMemberCount.setBounds(120, 163, 159, 23);
+		
 		frmActivityViewOrg.getContentPane().add(btnMemberCount);
 		list.addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -216,11 +232,63 @@ public class ActivityViewOrg implements Runnable{
 		btnViewMembers.setBorderPainted(false);
 		btnViewMembers.setBounds(270, 163, 159, 23);
 		frmActivityViewOrg.getContentPane().add(btnViewMembers);
+
+		try {
+			objResultSet=objSQLQuery.executeQuery("select * from tblorganizationbelongdata");
+			boolean booljoined=false;
+			while(objResultSet.next()){
+				if(objResultSet.getString("strStudentID").contentEquals(ActivityUserProfile.strStudentID)){
+					booljoined=true;
+				}
+			}
+			if(booljoined=true){
+				btnJoin.setText("Joined!");
+			}
+			else{
+				btnJoin.setText("Join");
+			}
+			}catch (SQLException e1) {
+			e1.printStackTrace();
+			}
 		
 		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO MODIFY TBLORGANIZATIONBELONGDATA
-			}
+				try {
+					objResultSet=objSQLQuery.executeQuery("select * from tblorganizationbelongdata");
+					boolean booljoined=false;
+					while(objResultSet.next()){
+						if(objResultSet.getString("strStudentID").contentEquals(ActivityUserProfile.strStudentID)){
+							booljoined=true;
+						}
+					}
+					if(!booljoined){
+						objSQLQuery.executeUpdate("insert into tblorganizationbelongdata values"
+										+ "("
+										+ "'"
+										+ ActivityUserProfile.strStudentID
+										+ "'"
+										+ ","
+										+ "'"
+										+ strOrganizationID
+										+ "'"
+										+ ","
+										+ "'"
+										+ "member"
+										+ "'"
+										+ ")"
+										);
+						} else{
+							objSQLQuery.executeUpdate("delete from tblorganizationbelongdata where strStudentID = "
+										+ "'"
+										+ ActivityUserProfile.strStudentID
+										+ "'"
+										);
+						}
+					}catch (SQLException e1) {
+					e1.printStackTrace();
+					}
+				}
 		});
 		
 		btnEditDetails.addActionListener(new ActionListener() {
@@ -243,7 +311,7 @@ public class ActivityViewOrg implements Runnable{
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//GO TO ACTIVITYDISCOVER
-				MainActivity.ActivityCreateUser();
+				MainActivity.ActivityHomePage();
 				frmActivityViewOrg.dispose();
 			}
 		});

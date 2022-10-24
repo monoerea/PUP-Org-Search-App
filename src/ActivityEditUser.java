@@ -73,7 +73,7 @@ public class ActivityEditUser implements Runnable {
 			String strDriver = "com.mysql.cj.jdbc.Driver";
 	        String strConn = "jdbc:mysql://localhost:3306/dbpuporgsearch";
 	        String strUser = "root";
-	        String strPass = "DerTeufelunterhandler12"; // TODO
+	        String strPass = "Whippycape2012"; // TODO
         	Class.forName(strDriver);
 			objConn = DriverManager.getConnection(strConn, strUser, strPass);
 			objSQLQuery = objConn.createStatement();
@@ -98,7 +98,7 @@ public class ActivityEditUser implements Runnable {
 		frmActivityEditUser = new JFrame();
 		//frmActivityEditUser.getContentPane().setBackground(new Color(176, 224, 230));
 		frmActivityEditUser.setTitle("PUP Name Search");
-		frmActivityEditUser.setBounds(0, 0, 455,768);
+		frmActivityEditUser.setBounds(400, 0, 455,768);
 		System.out.println(("Hello"+Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3) + " " + (Toolkit.getDefaultToolkit().getScreenSize().getHeight()));//to know screen size, mine 455.3333333333333 768.0
 		frmActivityEditUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmActivityEditUser.getContentPane().setLayout(null);
@@ -357,7 +357,7 @@ public class ActivityEditUser implements Runnable {
 							);
 					JOptionPane.showMessageDialog(null,"Account successfully created");
 						//GO TO LOGGING IN ACTIVITY
-					MainActivity.ActivityLoggingIn();
+					MainActivity.ActivityUserProfile();
 					frmActivityEditUser.dispose();
 					
 				} catch (SQLException e) {
@@ -369,7 +369,7 @@ public class ActivityEditUser implements Runnable {
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent objAE) {
 				//GO TO LOGGING IN ACTIVITY
-				MainActivity.ActivityLoggingIn();
+				MainActivity.ActivityUserProfile();
 				frmActivityEditUser.dispose();
 			}
 		});	
